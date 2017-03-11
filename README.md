@@ -50,6 +50,13 @@ foreach ($posts as $post) {
   echo $post->title . '<br>';
 }
 ```
+### Çoklu Veri Çekme (execAll) LIKE Komutu
+Şart ve parametlere göre veritabanından SQL kodları ile çoklu veri çeker
+```php
+$posts = Database::execAll('SELECT * FROM post WHERE draft = ? AND title LIKE ?', array(0,'%'title'%'));
+foreach ($posts as $post) {
+  echo $post->title . '<br>';
+}
 
 ### Veri Ekleme
 Tabloya kolayca veri eklememizi sağlar
