@@ -6,7 +6,7 @@
  * @version 0.4
  */
 
-class Database extends PDO 
+class Vt extends PDO 
 {
 	// Tablodaki asıl anahtar (Primary key)
 	private static $pk = 'id';
