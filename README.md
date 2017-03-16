@@ -6,34 +6,34 @@ Veritabanındaki tablolarla çalışırken en çok yaptığımız işlemler CRUD
 
 Veritabanından gelen veri; dizi (array) olarak değil, obje (object) olarak dönmektedir. Örneğin `$post['title']` yerine `$post->title` olarak kullanmanız gerekiyor. 
 
-## Bağlantı Kurma ve Ayarlar
+Bağlantı Kurma ve Ayarlar
 ```php
 $db = new Database('localhost', 'Veritabanı adı', 'Kullanıcı adı', 'Şifre');
 ```
 Veritabanı bağlantısı sağladıktan sonra, ID'ye göre işlem yapacağımız bazı metodlar olacağı için tablomuzda kullandığımız asıl anahtar (primary key) adının `id` olması gerekiyor. Eğer farklı bir anahtar adı kullanıyorsanız `$db->setPrimaryKey('postId')` metodunu kullanabilirsiniz.
 
-### Tekil Veri Çekme (getOne)
+Tekil Veri Çekme (getOne)
 Bir satır veri çekmek için kullanılan method
 ```php
 $post = Database::getOne('post', 'WHERE created = ?', array('2015-04-15 12:24:14'));
 echo $post->title;
 ```
 
-### Tekil Veri Çekme (execOne)
+Tekil Veri Çekme (execOne)
 Bir satır veri çekmek için ya da sorgu çalıştırmak için kullanılır
 ```php
 $post = Database::execOne('SELECT * FROM post WHERE created = ?', array('2015-04-15 12:24:14'));
 echo $post->title;
 ```
 
-### Tekil Veri Çekme (getId)
+Tekil Veri Çekme (getId)
 ID'ye göre tek satır veri çekmek için kullanılır
 ```php
 $category = Database::getId('category', 5);
 echo $category->name;
 ```
 
-### Çoklu Veri Çekme (getAll)
+Çoklu Veri Çekme (getAll)
 Şart ve parametlere göre veritabanından çoklu veri çeker
 ```php
 $posts = Database::getAll('post', 'WHERE draft = ?', array(0));
@@ -42,7 +42,7 @@ foreach ($posts as $post) {
 }
 ```
 
-### Çoklu Veri Çekme (execAll)
+Çoklu Veri Çekme (execAll)
 Şart ve parametlere göre veritabanından SQL kodları ile çoklu veri çeker
 ```php
 $posts = Database::execAll('SELECT * FROM post WHERE draft = ?', array(0));
@@ -50,7 +50,7 @@ foreach ($posts as $post) {
   echo $post->title . '<br>';
 }
 ```
-### Çoklu Veri Çekme (execAll) LIKE Komutu
+Çoklu Veri Çekme (execAll) LIKE Komutu
 Şart ve parametlere göre veritabanından SQL kodları ile çoklu veri çeker
 ```php
 $posts = Database::execAll('SELECT * FROM post WHERE draft = ? AND title LIKE ?', array(0,'%'title'%'));
@@ -58,7 +58,7 @@ foreach ($posts as $post) {
   echo $post->title . '<br>';
 }
 
-### Veri Ekleme
+Veri Ekleme
 Tabloya kolayca veri eklememizi sağlar
 ```php
 $insert = Database::insert('post', array(
@@ -70,7 +70,7 @@ $insert = Database::insert('post', array(
 echo $insert ? $insert . ' numaralı gönderi eklendi' : 'Gönderi eklenemedi';
 ```
 
-### Veri Güncelleme
+Veri Güncelleme
 Eğer veritbanındaki belirli ID'ye ait satırı güncellemek istersek:
 ```php
 $update = Database::update('post', 5, array(
@@ -93,7 +93,7 @@ $update = Database::update('post', 0, array(
 echo $update ? 'Gönderi başarıyla güncellendi' : 'Gönderi güncellenemedi';
 ```
 
-### Veri Silme
+Veri Silme
 Güncelleme ile aynı şekilde sadece ID'ye göre silmek için
 ```php
 $delete = Database::delete('post', 5);
@@ -106,7 +106,7 @@ $delete = Database::delete('post', 0, 'WHERE title = ?', array('Silinmelik gönd
 echo $delete ? 'Gönderi başarıyla silindi' : 'Gönderi silinemedi';
 ```
 
-### Toplam Satır Sayısı Alma
+Toplam Satır Sayısı Alma
 ```php
 $count = Database::count('post');
 echo $count ? 'Toplam ' . $count . ' gönderi mevcut' : 'Henüz hiç gönderi yok';
